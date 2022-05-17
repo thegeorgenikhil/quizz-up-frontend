@@ -1,0 +1,37 @@
+.rules-card {
+  max-width: 50%;
+  margin: 1rem auto;
+  background-color: var(--option-color);
+  font-weight: var(--font-regular);
+  font-size: var(--text-regular);
+  border-radius: var(--border-lg);
+  padding: 2rem;
+}
+
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style-type: none;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.start-quiz-btn {
+  display: flex;
+  text-decoration: none;
+  max-width: 10rem;
+  margin: auto;
+}
+
+.btn-bg-yellow {
+  background-color: var(--color-warning);
+}
+
+@media screen and (max-width: 600px) {
+  .rules-card {
+    max-width: 90%;
+    font-size: var(--text-sm);
+    padding: 2rem 1rem;
+  }
+}

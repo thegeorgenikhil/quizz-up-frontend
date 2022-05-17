@@ -1,0 +1,30 @@
+.navbar-container {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+}
+
+.navbar-group {
+  list-style: none;
+  font-size: var(--text-sm);
+  margin-left: auto;
+  display: flex;
+}
+
+.navbar-item {
+  padding-left: 1rem;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-link:hover {
+  border-bottom: 1px solid var(--color-white);
+}

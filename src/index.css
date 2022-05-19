@@ -115,6 +115,11 @@ body {
   border: 2px solid var(--color-primary);
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+}
+
 /* UTILITY CLASSES */
 
 .text-center {

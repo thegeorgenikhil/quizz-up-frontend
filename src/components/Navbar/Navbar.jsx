@@ -1,9 +1,11 @@
 import React from "react";
 import "./Navbar.css";
-import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context";
+import { GoSignOut } from "react-icons/go";
 
 export const Navbar = () => {
+  const { signout, auth } = useAuth();
   return (
     <nav className="navbar-container">
       <div className="navbar-brand">
@@ -12,21 +14,33 @@ export const Navbar = () => {
         </Link>
       </div>
       <ul className="navbar-group">
-        <li className="navbar-item">
-          <Link to="/leaderboard" className="navbar-link">
-            Leaderboard
-          </Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/rules" className="navbar-link">
-            Rules
-          </Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/login" className="navbar-link">
-            <FaUserAlt />
-          </Link>
-        </li>
+        {auth.isAuthenticated ? (
+          <>
+            <li className="navbar-item">
+              <Link to="/leaderboard" className="navbar-link">
+                Leaderboard
+              </Link>
+            </li>
+            <li className="navbar-item">
+              <Link to="/rules" className="navbar-link">
+                Rules
+              </Link>
+            </li>
+            <li className="navbar-item" onClick={signout}>
+              <Link to="/rules" className="navbar-link">
+                <GoSignOut />
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="navbar-item">
+              <Link to="/login" className="navbar-link">
+                Signin
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

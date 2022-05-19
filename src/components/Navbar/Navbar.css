@@ -14,10 +14,13 @@
   font-size: var(--text-sm);
   margin-left: auto;
   display: flex;
+  align-items: center;
 }
 
 .navbar-item {
   padding-left: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-link {

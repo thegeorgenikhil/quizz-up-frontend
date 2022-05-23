@@ -41,7 +41,7 @@ export const Signup = () => {
       </header>
       <div className="signup-card">
         <form>
-          <div className="input-name">
+          <div className="input-group">
             <label htmlFor="name">Name</label>
             <input
               id="name"

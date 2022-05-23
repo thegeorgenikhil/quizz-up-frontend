@@ -2,9 +2,21 @@ import React from "react";
 import { GrReactjs } from "react-icons/gr";
 import { SiJavascript } from "react-icons/si";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { useAuth, useDataContext } from "../../context";
+import { actionTypes } from "../../reducers";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const { auth } = useAuth();
+  const { dataDispatch } = useDataContext();
+  const { SET_CATEGORY_ID } = actionTypes;
+  const navigate = useNavigate();
+
+  const categoryClickHandler = (categoryId) => {
+    if (!auth.token) return navigate("/login");
+    dataDispatch({ type: SET_CATEGORY_ID, payload: { categoryId } });
+    navigate("/rules");
+  };
   return (
     <>
       <header className="header">
@@ -13,24 +25,30 @@ export const Home = () => {
         </p>
       </header>
       <main className="category-container">
-        <Link to="/rules" className="category-card category-js">
+        <div
+          className="category-card category-js"
+          onClick={() => categoryClickHandler("62876fbee8b1e0d9eb564910")}
+        >
           <div className="category-details">
-            <div className="category-name">Javascript</div>
-            <div className="category-level">Level-1</div>
+            <p className="category-name">Javascript</p>
+            <p className="category-level">Level-1</p>
             <div className="category-icon">
               <SiJavascript />
             </div>
           </div>
-        </Link>
-        <Link to="/rules" className="category-card category-react">
+        </div>
+        <div
+          className="category-card category-react"
+          onClick={() => categoryClickHandler("6287c06285041c07a1255b8f")}
+        >
           <div className="category-details">
-            <div className="category-name">ReactJS</div>
-            <div className="category-level">Level-1</div>
+            <p className="category-name">ReactJS</p>
+            <p className="category-level">Level-1</p>
             <div className="category-icon">
               <GrReactjs />
             </div>
           </div>
-        </Link>
+        </div>
       </main>
     </>
   );

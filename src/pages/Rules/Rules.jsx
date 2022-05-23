@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../../api";
+import { useAuth, useDataContext } from "../../context";
+import { actionTypes } from "../../reducers";
 import "./Rules.css";
 
 export const Rules = () => {
+  const { auth } = useAuth();
+  const { dataState, dataDispatch } = useDataContext();
+  const { currentCategoryId } = dataState.quizInfo;
+  const { SET_QUIZ_QUESTIONS } = actionTypes;
+
+  useEffect(() => {
+    const getQuestionsById = async (categoryId) => {
+      try {
+        const res = await api.get(`/quiz/get/${categoryId}/questions`, {
+          headers: {
+            authorization: `Bearer ${auth.token}`,
+          },
+        });
+        const data = await res.data;
+        if (res.status === 200) {
+          dataDispatch({
+            type: SET_QUIZ_QUESTIONS,
+            payload: {
+              questions: data.category.questions,
+              categoryName: data.category.categoryName,
+            },
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (auth.token) getQuestionsById(currentCategoryId);
+    // eslint-disable-next-line
+  }, [currentCategoryId]);
+
   return (
     <>
       <header className="header">
@@ -26,7 +61,10 @@ export const Rules = () => {
         </ul>
         <p className="text-center font-bold">HAPPY QUIZZING!</p>
       </div>
-      <Link to="/rules" className="start-quiz-btn">
+      <Link
+        to={auth.token ? "/quiz/question" : "/login"}
+        className="start-quiz-btn"
+      >
         <button className="btn bg-warning text-center btn-bg-yellow">
           Start Quiz
         </button>

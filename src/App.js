@@ -11,7 +11,8 @@ import {
 } from "./pages";
 import { Navbar, PrivateRoutes } from "./components";
 import { AuthProvider, DataProvider } from "./context";
-function App() {
+
+export const App = () => {
   return (
     <>
       <BrowserRouter>
@@ -47,6 +48,4 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
-
-export default App;
+};

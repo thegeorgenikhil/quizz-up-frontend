@@ -47,6 +47,7 @@ export const Signup = () => {
               id="name"
               type="text"
               className="input"
+              required
               placeholder="Enter Name:"
               name="name"
               onChange={formChangeHandler}
@@ -59,6 +60,7 @@ export const Signup = () => {
               type="email"
               id="email"
               className="input"
+              required
               placeholder="Enter Email: "
               name="email"
               onChange={formChangeHandler}
@@ -72,6 +74,7 @@ export const Signup = () => {
               id="password"
               type="password"
               className="input"
+              required
               placeholder="Enter Password: "
               name="password"
               onChange={formChangeHandler}
@@ -83,6 +86,7 @@ export const Signup = () => {
             <input
               type="password"
               className="input"
+              required
               placeholder="Confirm Password: "
               name="confirmPassword"
               onChange={formChangeHandler}

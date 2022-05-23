@@ -27,7 +27,7 @@ export const Home = () => {
       <main className="category-container">
         <div
           className="category-card category-js"
-          onClick={() => categoryClickHandler("62876fbee8b1e0d9eb564910")}
+          onClick={() => categoryClickHandler("628b224b0773d1a29b88db02")}
         >
           <div className="category-details">
             <p className="category-name">Javascript</p>
@@ -39,7 +39,7 @@ export const Home = () => {
         </div>
         <div
           className="category-card category-react"
-          onClick={() => categoryClickHandler("6287c06285041c07a1255b8f")}
+          onClick={() => categoryClickHandler("628b22550773d1a29b88db04")}
         >
           <div className="category-details">
             <p className="category-name">ReactJS</p>

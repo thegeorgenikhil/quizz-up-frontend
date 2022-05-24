@@ -38,6 +38,19 @@
   padding: 1rem;
   margin: 10px 0;
   border-radius: var(--border-sm);
+  transition: all 0.3s ease-in-out;
+}
+
+.option-selected {
+  background-color: var(--color-warning);
+}
+
+.option-correct {
+  background-color: var(--color-success);
+}
+
+.option-wrong {
+  background-color: var(--color-danger);
 }
 
 @media screen and (max-width: 600px) {

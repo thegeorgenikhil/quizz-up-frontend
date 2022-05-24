@@ -34,7 +34,7 @@ export const Rules = () => {
       }
     };
 
-    if (auth.token) getQuestionsById(currentCategoryId);
+    if (auth.token && currentCategoryId) getQuestionsById(currentCategoryId);
     // eslint-disable-next-line
   }, [currentCategoryId]);
 
@@ -62,7 +62,9 @@ export const Rules = () => {
         <p className="text-center font-bold">HAPPY QUIZZING!</p>
       </div>
       <Link
-        to={auth.token ? "/quiz/question" : "/login"}
+        to={
+          auth.token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"
+        }
         className="start-quiz-btn"
       >
         <button className="btn bg-warning text-center btn-bg-yellow">

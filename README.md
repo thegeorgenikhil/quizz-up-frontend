@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# QuizzUp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e282fa7e-3269-4169-8f1f-5b3b8d1c6698/deploy-status)](https://app.netlify.com/sites/quizz-up/deploys)
 
-## Available Scripts
+QuizzUp is a web app that allows users to play quizzes made using React.js and Node.js for the backend. You can select a quiz from the list of categories and start playing.
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Live Link](https://quizz-up.netlify.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+[Github Repo for Backend](https://github.com/thegeorgenikhil/quizz-up-frontend)
 
-### `npm test`
+# How to run app locally
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.  Clone the repo
 
-### `npm run build`
+```
+git clone https://github.com/thegeorgenikhil/flow.vid.git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2.  Install dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3.  Create a file named .env within the newly cloned repo directory and add the following line:
 
-### `npm run eject`
+```
+REACT_APP_API_URL=https://quizz-up-backend.herokuapp.com/api
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4.  Start the app
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Authentication
+  - _Login_
+  - _Logout_
+  - _Signup_
+- Quizzes by Category
+- MCQ based Quiz Question Page
+- Result Page with Answers & Score
+- Leaderboard
+- Loading & Alerts
 
-## Learn More
+# Built Using
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- ReactJS
+- Node.js
+- React Context API + useReducer
+- React Router v6
+- Axios
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Preview
 
-### Code Splitting
+# Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Pull requests for new features, bug fixes, and suggestions are welcome! Please create an issue for discussion before working on a substantial change.
 
-### Analyzing the Bundle Size
+To contribute to this library:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Fork** the repo on GitHub
+2. **Clone** the repo on GitHub
 
-### Making a Progressive Web App
+```bash
+git clone https://github.com/thegeorgenikhil/quizz-up-frontend.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **Create** a new branch
+4. **Commit** your changes to your own branch
+5. **Push** your branch to GitHub
+6. Submit a **Pull Request** so that we can review your changes

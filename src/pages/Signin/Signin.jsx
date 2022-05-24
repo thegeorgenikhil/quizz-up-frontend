@@ -78,12 +78,6 @@ export const Signin = () => {
               />
               <label htmlFor="remember-me">&#160;Remember Me</label>
             </div>
-            <Link
-              to="/forgot"
-              className="color-white format-link underline-onhover"
-            >
-              Forgot Password?
-            </Link>
           </div>
           <button
             className="btn btn-block bg-info my-4"

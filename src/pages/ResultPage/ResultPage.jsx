@@ -30,7 +30,7 @@ export const ResultPage = () => {
       {results &&
         results.compareAnswer.map((answer, index) => {
           return (
-            <div className="quiz-container">
+            <div className="quiz-container" key={index}>
               <div className="quiz-info-container">
                 <p>
                   Question: <span className="font-bold">{index + 1}</span>/

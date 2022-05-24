@@ -15,7 +15,7 @@ QuizzUp is a web app that allows users to play quizzes made using React.js and N
 1.  Clone the repo
 
 ```
-git clone https://github.com/thegeorgenikhil/flow.vid.git
+git clone https://github.com/thegeorgenikhil/quizz-up-frontend.git
 ```
 
 2.  Install dependencies
@@ -57,6 +57,10 @@ npm start
 - Axios
 
 # Preview
+
+
+https://user-images.githubusercontent.com/56214901/170029248-191fde8e-7510-4de6-ad48-24c5daf685a0.mp4
+
 
 # Contributing
 

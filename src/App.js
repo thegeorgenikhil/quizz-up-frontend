@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
-  ForgotPassword,
   Home,
   Leaderboard,
   QuizPage,
@@ -33,7 +32,6 @@ export const App = () => {
               />
               <Route path="/login" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/forgot" element={<ForgotPassword />} />
               <Route
                 path="/quiz/question"
                 element={

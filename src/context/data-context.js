@@ -10,7 +10,7 @@ export const DataProvider = ({ children }) => {
   const { auth } = useAuth();
   const [dataState, dataDispatch] = useReducer(dataReducer, {
     quizInfo: {
-      currentCategoryId: "",
+      currentCategoryId: null,
       questions: [],
       categoryName: "",
     },

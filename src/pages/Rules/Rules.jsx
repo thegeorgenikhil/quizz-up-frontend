@@ -48,15 +48,16 @@ export const Rules = () => {
           <li className="list-rule-item">
             1.There are a total of 10 questions.
           </li>
-          <li className="list-rule-item">2.Every question is of 10 points.</li>
+          <li className="list-rule-item">2.Every question is of 2 points.</li>
           <li className="list-rule-item">
-            3.For every wrong answer, 2 points is deducted.
+            3.No points are deducted for wrong answers.
           </li>
           <li className="list-rule-item">
-            4.Every question has a time limit of 45 seconds.
+            4.Your progress gets lost if you quit in-between the questions.
           </li>
           <li className="list-rule-item">
-            5.Your progress gets lost if you quit in-between the questions.
+            5.Your final score can be viewed after clicking on the submit
+            button.
           </li>
         </ul>
         <p className="text-center font-bold">HAPPY QUIZZING!</p>

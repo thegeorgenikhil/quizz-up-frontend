@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Loader } from "../../components";
 import { useDataContext } from "../../context";
 import { actionTypes } from "../../reducers";
 import "./QuizPage.css";
@@ -11,6 +12,7 @@ export const QuizPage = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const nextQuestionHandler = () => {
     dataDispatch({
@@ -23,6 +25,7 @@ export const QuizPage = () => {
   };
 
   const submitQuizHandler = async () => {
+    setLoading(true);
     dataDispatch({
       type: SET_ANSWER,
       payload: {
@@ -33,6 +36,7 @@ export const QuizPage = () => {
       ...userAnswers,
       { questionId: currentQuestion._id, answer: answer },
     ]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -80,7 +84,7 @@ export const QuizPage = () => {
                 className="btn bg-warning text-center btn-bg-yellow"
                 onClick={submitQuizHandler}
               >
-                Submit Quiz
+                {loading ? <Loader /> : "Submit Quiz"}
               </button>
             ))}
         </div>

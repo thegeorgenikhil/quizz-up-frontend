@@ -1,7 +1,0 @@
-.option-correct {
-  background-color: var(--color-success);
-}
-
-.option-wrong {
-  background-color: var(--color-danger);
-}

@@ -1,36 +1,51 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
-  AnswerPage,
   ForgotPassword,
   Home,
   Leaderboard,
   QuizPage,
+  ResultPage,
   Rules,
   Signin,
   Signup,
 } from "./pages";
-import { Navbar } from "./components";
-import { AuthProvider } from "./context";
-function App() {
+import { Navbar, PrivateRoutes } from "./components";
+import { AuthProvider, DataProvider } from "./context";
+
+export const App = () => {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/rules" element={<Rules />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/login" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/forgot" element={<ForgotPassword />} />
-            <Route path="/quiz/question" element={<QuizPage />} />
-            <Route path="/quiz/answer" element={<AnswerPage />} />
-          </Routes>
+          <DataProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/rules" element={<Rules />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
+              <Route
+                path="/results"
+                element={
+                  <PrivateRoutes>
+                    <ResultPage />
+                  </PrivateRoutes>
+                }
+              />
+              <Route path="/login" element={<Signin />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot" element={<ForgotPassword />} />
+              <Route
+                path="/quiz/question"
+                element={
+                  <PrivateRoutes>
+                    <QuizPage />
+                  </PrivateRoutes>
+                }
+              />
+            </Routes>
+          </DataProvider>
         </AuthProvider>
       </BrowserRouter>
     </>
   );
-}
-
-export default App;
+};

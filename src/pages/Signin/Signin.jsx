@@ -36,13 +36,14 @@ export const Signin = () => {
         <p className="font-bold text-center">Sign In🔐</p>
       </header>
       <div className="signup-card">
-        <form action="">
+        <form>
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input
               type="text"
               id="email"
               className="input"
+              required
               placeholder="Enter Email:"
               name="email"
               onChange={formChangeHandler}
@@ -55,6 +56,7 @@ export const Signin = () => {
               type="password"
               id="password"
               className="input"
+              required
               placeholder="Enter Password: "
               name="password"
               onChange={formChangeHandler}

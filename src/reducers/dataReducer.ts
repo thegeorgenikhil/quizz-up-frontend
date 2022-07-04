@@ -1,4 +1,5 @@
 import { actionTypes } from "./actionTypes";
+import { DataStateType, DataActionType } from "../type";
 const {
   SET_CATEGORY_ID,
   SET_QUIZ_QUESTIONS,
@@ -8,7 +9,7 @@ const {
   TAKE_ANOTHER_QUIZ,
 } = actionTypes;
 
-export const dataReducer = (state, action) => {
+export const dataReducer = (state: DataStateType, action: DataActionType) => {
   switch (action.type) {
     case SET_CATEGORY_ID:
       return {

@@ -10,7 +10,7 @@ export const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    termsAndConditions: "",
+    termsAndConditions: false,
   });
   const { name, email, password, confirmPassword, termsAndConditions } =
     formData;

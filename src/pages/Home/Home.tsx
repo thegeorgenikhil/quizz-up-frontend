@@ -12,7 +12,7 @@ export const Home = () => {
   const { SET_CATEGORY_ID } = actionTypes;
   const navigate = useNavigate();
 
-  const categoryClickHandler = (categoryId) => {
+  const categoryClickHandler = (categoryId : string) => {
     if (!auth.token) return navigate("/login");
     dataDispatch({ type: SET_CATEGORY_ID, payload: { categoryId } });
     navigate("/rules");

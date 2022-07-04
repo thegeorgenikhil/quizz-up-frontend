@@ -7,10 +7,7 @@ export const Leaderboard = () => {
   const [filterByCategory, setFilterByCategory] = useState("all");
   const userScoreReducer = (arr) => {
     return arr.reduce((acc, curr) => {
-      if (filterByCategory === "all" || filterByCategory === curr.categoryId) {
-        return acc + curr.userScore;
-      }
-      return acc + 0;
+      return acc + curr.userScore;
     }, 0);
   };
   useEffect(() => {
@@ -49,7 +46,13 @@ export const Leaderboard = () => {
           </thead>
           <tbody>
             {leaderboardInfo
-              ?.sort((userOne, userTwo) => {
+              ?.filter((user) => {
+                return (
+                  filterByCategory === "all" ||
+                  filterByCategory === user.categoryId
+                );
+              })
+              .sort((userOne, userTwo) => {
                 return userScoreReducer(userTwo) - userScoreReducer(userOne);
               })
               .map((user, index) => {

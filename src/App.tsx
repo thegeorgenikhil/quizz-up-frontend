@@ -10,8 +10,9 @@ import {
 } from "./pages";
 import { Navbar, PrivateRoutes } from "./components";
 import { AuthProvider, DataProvider } from "./context";
+import { FC } from "react";
 
-export const App = () => {
+export const App : FC = () => {
   return (
     <>
       <BrowserRouter>

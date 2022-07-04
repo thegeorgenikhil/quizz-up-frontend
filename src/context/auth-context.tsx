@@ -1,13 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-const AuthContext = createContext();
+import { UserInfoType, AuthContextType, AuthType } from "../type";
 
-export const AuthProvider = ({ children }) => {
+const AuthContext = createContext({} as AuthContextType);
+
+export const AuthProvider = ({ children }: PropsWithChildren) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [auth, setAuth] = useState(() => {
+  const [auth, setAuth] = useState<AuthType>(() => {
     if (token) {
       return {
         token,
@@ -17,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     return { token: "", isAuthenticated: false };
   });
 
-  const signup = async (userInfo) => {
+  const signup = async (userInfo: UserInfoType) => {
     const { name, email, password } = userInfo;
     const res = await api.post("/auth/signup", {
       name,
@@ -38,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signin = async (userInfo) => {
+  const signin = async (userInfo: UserInfoType) => {
     const { email, password, rememberMe } = userInfo;
     const res = await api.post("/auth/login", {
       email,

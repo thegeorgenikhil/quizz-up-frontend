@@ -1,19 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../api";
 import "./Leaderboard.css";
+import { UserScoreInfoType, LeaderboardType } from "../../type";
 
 export const Leaderboard = () => {
-  const [leaderboardInfo, setLeaderboardInfo] = useState([]);
-  const [filterByCategory, setFilterByCategory] = useState("all");
-  const userScoreReducer = (arr) => {
-    return arr.reduce((acc, curr) => {
-      return acc + curr.userScore;
-    }, 0);
+  const [leaderboardInfo, setLeaderboardInfo] = useState<
+    Array<UserScoreInfoType[]>
+  >([]);
+  const [filterByCategory, setFilterByCategory] = useState<string>("all");
+
+  const leaderboardReducer = (
+    leaderboard: LeaderboardType[],
+    data: UserScoreInfoType[]
+  ) => {
+    const userInfo = { name: data[0].name, userScore: 0 };
+    data.map((user) => {
+      if (filterByCategory === "all" || user.categoryId === filterByCategory) {
+        userInfo.userScore += user.userScore;
+      }
+    });
+    leaderboard.push(userInfo);
+    return leaderboard;
   };
   useEffect(() => {
     const getLeaderboardInfo = async () => {
       const res = await api.get("/quiz/leaderboard");
       const data = await res.data;
+      console.log(data.leaderboard);
       setLeaderboardInfo(data.leaderboard);
     };
     getLeaderboardInfo();
@@ -46,21 +59,17 @@ export const Leaderboard = () => {
           </thead>
           <tbody>
             {leaderboardInfo
-              ?.filter((user) => {
-                return (
-                  filterByCategory === "all" ||
-                  filterByCategory === user.categoryId
-                );
-              })
-              .sort((userOne, userTwo) => {
-                return userScoreReducer(userTwo) - userScoreReducer(userOne);
-              })
+              .reduce(leaderboardReducer, [])
+              .sort(
+                (userOne: LeaderboardType, userTwo: LeaderboardType) =>
+                  userTwo.userScore - userOne.userScore
+              )
               .map((user, index) => {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{user[0].name}</td>
-                    <td>{userScoreReducer(user)}</td>
+                    <td>{user.name}</td>
+                    <td>{user.userScore}</td>
                   </tr>
                 );
               })}

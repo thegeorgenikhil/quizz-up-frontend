@@ -6,7 +6,8 @@ import { actionTypes } from "../../reducers";
 export const ResultPage = () => {
   const { dataState, dataDispatch } = useDataContext();
   const { results } = dataState;
-  const navigate = useNavigate("");
+  console.log(results)
+  const navigate = useNavigate();
   const { TAKE_ANOTHER_QUIZ } = actionTypes;
 
   const takeAnotherQuizHandler = () => {

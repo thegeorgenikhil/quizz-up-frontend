@@ -1,4 +1,3 @@
-import React from "react";
 import { GrReactjs } from "react-icons/gr";
 import { SiJavascript } from "react-icons/si";
 import "./Home.css";

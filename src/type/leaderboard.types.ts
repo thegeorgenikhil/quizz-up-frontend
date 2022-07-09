@@ -3,3 +3,8 @@ export type UserScoreInfoType = {
   userScore: number;
   name: string;
 };
+
+export type LeaderboardType = {
+  name: string;
+  userScore: number;
+};

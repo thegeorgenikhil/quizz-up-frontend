@@ -26,7 +26,6 @@ export const Leaderboard = () => {
     const getLeaderboardInfo = async () => {
       const res = await api.get("/quiz/leaderboard");
       const data = await res.data;
-      console.log(data.leaderboard);
       setLeaderboardInfo(data.leaderboard);
     };
     getLeaderboardInfo();

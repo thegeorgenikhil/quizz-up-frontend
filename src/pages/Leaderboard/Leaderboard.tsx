@@ -14,7 +14,7 @@ export const Leaderboard = () => {
     data: UserScoreInfoType[]
   ) => {
     const userInfo = { name: data[0].name, userScore: 0 };
-    data.map((user) => {
+    data.forEach((user) => {
       if (filterByCategory === "all" || user.categoryId === filterByCategory) {
         userInfo.userScore += user.userScore;
       }

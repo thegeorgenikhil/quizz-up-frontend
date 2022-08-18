@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-import { UserInfoType, AuthContextType, AuthType } from "../type";
+import { UserInfoType, AuthContextType, AuthType } from "../types";
 
 const AuthContext = createContext({} as AuthContextType);
 

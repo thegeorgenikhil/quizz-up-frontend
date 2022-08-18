@@ -2,31 +2,32 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { useAuth } from "../../context";
+import { UserAuthInfoType } from "../../types";
 
 export const Signup = () => {
   const { signup } = useAuth();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<UserAuthInfoType>({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    termsAndConditions: false,
+    termsAndConditions: "",
   });
   const { name, email, password, confirmPassword, termsAndConditions } =
     formData;
   const isFormFullyFilled =
     name && email && password === confirmPassword && termsAndConditions;
-  const formChangeHandler = (e) => {
+  const formChangeHandler = (e: { target: HTMLInputElement }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [loading, setLoading] = useState(false);
 
-  const formSubmitHandler = async (e) => {
+  const formSubmitHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
       if (!isFormFullyFilled) return;
-      await signup(formData);
+      signup(formData);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -98,7 +99,7 @@ export const Signup = () => {
             <input
               type="checkbox"
               name="termsAndConditions"
-              onChange={(e) =>
+              onChange={(e: { target: HTMLInputElement }) =>
                 setFormData((prev) => ({
                   ...prev,
                   [e.target.name]: e.target.checked,

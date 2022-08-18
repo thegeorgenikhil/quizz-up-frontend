@@ -1,5 +1,5 @@
 import { actionTypes } from "./actionTypes";
-import { DataStateType, DataActionType } from "../type";
+import { DataStateType, DataActionType } from "../types";
 const {
   SET_CATEGORY_ID,
   SET_QUIZ_QUESTIONS,

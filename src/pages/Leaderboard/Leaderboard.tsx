@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
 import "./Leaderboard.css";
-import { UserScoreInfoType, LeaderboardType } from "../../type";
+import { UserScoreInfoType, LeaderboardType } from "../../types";
 
 export const Leaderboard = () => {
   const [leaderboardInfo, setLeaderboardInfo] = useState<

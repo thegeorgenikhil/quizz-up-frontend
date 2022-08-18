@@ -1,4 +1,3 @@
-import React from "react";
 import {  useNavigate } from "react-router-dom";
 import { useDataContext } from "../../context";
 import { actionTypes } from "../../reducers";
@@ -6,7 +5,6 @@ import { actionTypes } from "../../reducers";
 export const ResultPage = () => {
   const { dataState, dataDispatch } = useDataContext();
   const { results } = dataState;
-  console.log(results)
   const navigate = useNavigate();
   const { TAKE_ANOTHER_QUIZ } = actionTypes;
 

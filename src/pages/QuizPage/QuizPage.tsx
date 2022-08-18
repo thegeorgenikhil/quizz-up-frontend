@@ -3,6 +3,7 @@ import { Loader } from "../../components";
 import { useDataContext } from "../../context";
 import { actionTypes } from "../../reducers";
 import "./QuizPage.css";
+import { QuestionType } from "../../types";
 
 export const QuizPage = () => {
   const { dataState, dataDispatch, submitQuiz } = useDataContext();
@@ -10,9 +11,13 @@ export const QuizPage = () => {
   const { currentQuestionIndex, userAnswers } = dataState;
   const { INCREMENT_CURRENT_QUESTION_INDEX, SET_ANSWER } = actionTypes;
 
-  const [currentQuestion, setCurrentQuestion] = useState({});
-  const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState<QuestionType>({
+    _id: "",
+    question: "",
+    questionOptions: [],
+  });
+  const [answer, setAnswer] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const nextQuestionHandler = () => {
     dataDispatch({
@@ -32,7 +37,7 @@ export const QuizPage = () => {
         userAnswer: { questionId: currentQuestion._id, answer: answer },
       },
     });
-    await submitQuiz(currentCategoryId, [
+    submitQuiz(currentCategoryId, [
       ...userAnswers,
       { questionId: currentQuestion._id, answer: answer },
     ]);

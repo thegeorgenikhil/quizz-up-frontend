@@ -1,4 +1,3 @@
-import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context";
@@ -27,7 +26,7 @@ export const Navbar: FC = () => {
                 Rules
               </Link>
             </li>
-            <li className="navbar-item" onClick={signout}>
+            <li className="navbar-item" onClick={() => signout()}>
               <Link to="/rules" className="navbar-link">
                 <GoSignOut />
               </Link>

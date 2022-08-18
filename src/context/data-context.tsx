@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { actionTypes, dataReducer } from "../reducers";
 import { useAuth } from "./auth-context";
-import { DataStateType,UserContextType } from "../type";
+import { DataStateType, UserContextType } from "../types";
 
 const UserContext = createContext({} as UserContextType);
 
@@ -20,7 +20,7 @@ const initialDataState: DataStateType = {
   },
   currentQuestionIndex: 0,
   userAnswers: [],
-  results: {},
+  results: { compareAnswer: [], finalScore: 0 },
   finalScore: 0,
 };
 

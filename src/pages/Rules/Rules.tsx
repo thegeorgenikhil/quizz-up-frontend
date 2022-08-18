@@ -12,7 +12,7 @@ export const Rules = () => {
   const { SET_QUIZ_QUESTIONS } = actionTypes;
 
   useEffect(() => {
-    const getQuestionsById = async (categoryId) => {
+    const getQuestionsById = async (categoryId: string) => {
       try {
         const res = await api.get(`/quiz/get/${categoryId}/questions`, {
           headers: {

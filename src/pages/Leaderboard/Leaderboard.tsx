@@ -1,22 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../api";
 import "./Leaderboard.css";
+import { UserScoreInfoType, LeaderboardType } from "../../types";
 
 export const Leaderboard = () => {
-  const [leaderboardInfo, setLeaderboardInfo] = useState([]);
-  const [filterByCategory, setFilterByCategory] = useState("all");
-  const userScoreReducer = (arr) => {
-    return arr.reduce((acc, curr) => {
-      if (filterByCategory === "all" || filterByCategory === curr.categoryId) {
-        return acc + curr.userScore;
+  const [leaderboardInfo, setLeaderboardInfo] = useState<
+    Array<UserScoreInfoType[]>
+  >([]);
+  const [filterByCategory, setFilterByCategory] = useState<string>("all");
+
+  const leaderboardReducer = (
+    leaderboard: LeaderboardType[],
+    data: UserScoreInfoType[]
+  ) => {
+    const userInfo = { name: data[0].name, userScore: 0 };
+    data.forEach((user) => {
+      if (filterByCategory === "all" || user.categoryId === filterByCategory) {
+        userInfo.userScore += user.userScore;
       }
-      return acc + 0;
-    }, 0);
+    });
+    leaderboard.push(userInfo);
+    return leaderboard;
   };
   useEffect(() => {
     const getLeaderboardInfo = async () => {
       const res = await api.get("/quiz/leaderboard");
       const data = await res.data;
+      console.log(data.leaderboard);
       setLeaderboardInfo(data.leaderboard);
     };
     getLeaderboardInfo();
@@ -49,15 +59,17 @@ export const Leaderboard = () => {
           </thead>
           <tbody>
             {leaderboardInfo
-              ?.sort((userOne, userTwo) => {
-                return userScoreReducer(userTwo) - userScoreReducer(userOne);
-              })
+              .reduce(leaderboardReducer, [])
+              .sort(
+                (userOne: LeaderboardType, userTwo: LeaderboardType) =>
+                  userTwo.userScore - userOne.userScore
+              )
               .map((user, index) => {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{user[0].name}</td>
-                    <td>{userScoreReducer(user)}</td>
+                    <td>{user.name}</td>
+                    <td>{user.userScore}</td>
                   </tr>
                 );
               })}

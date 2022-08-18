@@ -1,10 +1,10 @@
-import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context";
 import { GoSignOut } from "react-icons/go";
+import { FC } from "react";
 
-export const Navbar = () => {
+export const Navbar: FC = () => {
   const { signout, auth } = useAuth();
   return (
     <nav className="navbar-container">
@@ -26,7 +26,7 @@ export const Navbar = () => {
                 Rules
               </Link>
             </li>
-            <li className="navbar-item" onClick={signout}>
+            <li className="navbar-item" onClick={() => signout()}>
               <Link to="/rules" className="navbar-link">
                 <GoSignOut />
               </Link>

@@ -2,28 +2,29 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { useAuth } from "../../context";
+import { UserAuthInfoType } from "../../types";
 
 export const Signin = () => {
   const { signin } = useAuth();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<UserAuthInfoType>({
     email: "",
     password: "",
     rememberMe: false,
   });
   const { email, password, rememberMe } = formData;
   const isFormFullyFilled = email && password;
-  const formChangeHandler = (e) => {
+  const formChangeHandler = (e: { target: HTMLInputElement }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const [loading, setLoading] = useState(false);
 
-  const formSubmitHandler = async (e) => {
+  const formSubmitHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
       if (!isFormFullyFilled) return;
-      await signin(formData);
+      signin(formData);
       setLoading(false);
     } catch (err) {
       setLoading(false);

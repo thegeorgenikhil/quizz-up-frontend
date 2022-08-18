@@ -1,28 +1,36 @@
-import { createContext, useContext, useReducer } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useReducer,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { actionTypes, dataReducer } from "../reducers";
 import { useAuth } from "./auth-context";
+import { DataStateType, UserContextType } from "../types";
 
-const UserContext = createContext();
+const UserContext = createContext({} as UserContextType);
 
-export const DataProvider = ({ children }) => {
+const initialDataState: DataStateType = {
+  quizInfo: {
+    currentCategoryId: "",
+    questions: [],
+    categoryName: "",
+  },
+  currentQuestionIndex: 0,
+  userAnswers: [],
+  results: { compareAnswer: [], finalScore: 0 },
+  finalScore: 0,
+};
+
+export const DataProvider = ({ children }: PropsWithChildren) => {
   const { auth } = useAuth();
-  const [dataState, dataDispatch] = useReducer(dataReducer, {
-    quizInfo: {
-      currentCategoryId: null,
-      questions: [],
-      categoryName: "",
-    },
-    currentQuestionIndex: 0,
-    userAnswers: [],
-    results: {},
-    finalScore: 0,
-  });
+  const [dataState, dataDispatch] = useReducer(dataReducer, initialDataState);
   const { SET_RESULTS } = actionTypes;
   const navigate = useNavigate();
 
-  const submitQuiz = async (categoryId, userAnswers) => {
+  const submitQuiz = async (categoryId: string, userAnswers: Array<any>) => {
     const res = await api.post(
       "/quiz/submit",
       {

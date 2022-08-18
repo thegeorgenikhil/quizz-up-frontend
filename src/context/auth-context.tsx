@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-import { UserInfoType, AuthContextType, AuthType } from "../types";
+import { UserAuthInfoType, AuthContextType, AuthType } from "../types";
 
 const AuthContext = createContext({} as AuthContextType);
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     return { token: "", isAuthenticated: false };
   });
 
-  const signup = async (userInfo: UserInfoType) => {
+  const signup = async (userInfo: UserAuthInfoType) => {
     const { name, email, password } = userInfo;
     const res = await api.post("/auth/signup", {
       name,
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const signin = async (userInfo: UserInfoType) => {
+  const signin = async (userInfo: UserAuthInfoType) => {
     const { email, password, rememberMe } = userInfo;
     const res = await api.post("/auth/login", {
       email,

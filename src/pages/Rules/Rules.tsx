@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api";
+import { Loader } from "../../components";
 import { useAuth, useDataContext } from "../../context";
 import { actionTypes } from "../../reducers";
 import "./Rules.css";
@@ -10,9 +11,11 @@ export const Rules = () => {
   const { dataState, dataDispatch } = useDataContext();
   const { currentCategoryId } = dataState.quizInfo;
   const { SET_QUIZ_QUESTIONS } = actionTypes;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getQuestionsById = async (categoryId: string) => {
+      setLoading(true);
       try {
         const res = await api.get(`/quiz/get/${categoryId}/questions`, {
           headers: {
@@ -32,6 +35,7 @@ export const Rules = () => {
       } catch (err) {
         console.error(err);
       }
+      setLoading(false);
     };
 
     if (auth.token && currentCategoryId) getQuestionsById(currentCategoryId);
@@ -62,16 +66,22 @@ export const Rules = () => {
         </ul>
         <p className="text-center font-bold">HAPPY QUIZZING!</p>
       </div>
-      <Link
-        to={
-          auth.token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"
-        }
-        className="start-quiz-btn"
-      >
-        <button className="btn bg-warning text-center btn-bg-yellow">
-          Start Quiz
+      {loading ? (
+        <button className="start-quiz-btn btn bg-warning text-center btn-bg-yellow">
+          <Loader />
         </button>
-      </Link>
+      ) : (
+        <Link
+          to={
+            auth.token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"
+          }
+          className="start-quiz-btn"
+        >
+          <button className="btn bg-warning text-center btn-bg-yellow">
+            Start Quiz
+          </button>
+        </Link>
+      )}
     </>
   );
 };

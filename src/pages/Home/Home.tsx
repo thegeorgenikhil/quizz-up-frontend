@@ -1,18 +1,19 @@
 import { GrReactjs } from "react-icons/gr";
 import { SiJavascript } from "react-icons/si";
 import "./Home.css";
-import { useAuth, useDataContext } from "../../context";
+import { useDataContext } from "../../context";
 import { actionTypes } from "../../reducers";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 
 export const Home = () => {
-  const { auth } = useAuth();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const { dataDispatch } = useDataContext();
   const { SET_CATEGORY_ID } = actionTypes;
   const navigate = useNavigate();
 
-  const categoryClickHandler = (categoryId : string) => {
-    if (!auth.token) return navigate("/login");
+  const categoryClickHandler = (categoryId: string) => {
+    if (!isAuthenticated) return navigate("/login");
     dataDispatch({ type: SET_CATEGORY_ID, payload: { categoryId } });
     navigate("/rules");
   };

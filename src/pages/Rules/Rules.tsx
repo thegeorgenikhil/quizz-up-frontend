@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api";
+import { useAppSelector } from "../../app/hooks";
 import { Loader } from "../../components";
-import { useAuth, useDataContext } from "../../context";
+import { useDataContext } from "../../context";
 import { actionTypes } from "../../reducers";
 import "./Rules.css";
 
 export const Rules = () => {
-  const { auth } = useAuth();
+  const { token } = useAppSelector((state) => state.auth);
   const { dataState, dataDispatch } = useDataContext();
   const { currentCategoryId } = dataState.quizInfo;
   const { SET_QUIZ_QUESTIONS } = actionTypes;
@@ -19,7 +20,7 @@ export const Rules = () => {
       try {
         const res = await api.get(`/quiz/get/${categoryId}/questions`, {
           headers: {
-            authorization: `Bearer ${auth.token}`,
+            authorization: `Bearer ${token}`,
           },
         });
         const data = await res.data;
@@ -38,7 +39,7 @@ export const Rules = () => {
       setLoading(false);
     };
 
-    if (auth.token && currentCategoryId) getQuestionsById(currentCategoryId);
+    if (token && currentCategoryId) getQuestionsById(currentCategoryId);
     // eslint-disable-next-line
   }, [currentCategoryId]);
 
@@ -72,9 +73,7 @@ export const Rules = () => {
         </button>
       ) : (
         <Link
-          to={
-            auth.token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"
-          }
+          to={token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"}
           className="start-quiz-btn"
         >
           <button className="btn bg-warning text-center btn-bg-yellow">

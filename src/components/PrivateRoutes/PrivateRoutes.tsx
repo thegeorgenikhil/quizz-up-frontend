@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../context";
 import { PropsWithChildren } from "react";
+import { useAppSelector } from "../../app/hooks";
 
 export const PrivateRoutes = ({ children }: PropsWithChildren) => {
-  const { auth } = useAuth();
-  return <>{auth.token ? children : <Navigate to={"/sigin"} />}</>;
+  const { token } = useAppSelector((state) => state.auth);
+  return <>{token ? children : <Navigate to={"/sigin"} />}</>;
 };

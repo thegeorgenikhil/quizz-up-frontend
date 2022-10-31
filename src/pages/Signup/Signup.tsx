@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
 import { Loader } from "../../components/Loader/Loader";
-import { useAuth } from "../../context";
+import { signup } from "../../features/auth/authSlice";
 import { UserAuthInfoType } from "../../types";
 
 export const Signup = () => {
-  const { signup } = useAuth();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<UserAuthInfoType>({
     name: "",
     email: "",
@@ -27,8 +29,11 @@ export const Signup = () => {
     try {
       setLoading(true);
       if (!isFormFullyFilled) return;
-      signup(formData);
-      setLoading(false);
+      const user = await dispatch(signup(formData)).unwrap();
+      if (user.token) {
+        setLoading(false);
+        navigate("/");
+      }
     } catch (err) {
       setLoading(false);
       console.error(err);

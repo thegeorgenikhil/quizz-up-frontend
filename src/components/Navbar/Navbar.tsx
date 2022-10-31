@@ -1,11 +1,21 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context";
 import { GoSignOut } from "react-icons/go";
 import { FC } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { authActions } from "../../features/auth/authSlice";
 
 export const Navbar: FC = () => {
-  const { signout, auth } = useAuth();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const { signout } = authActions;
+
+  const signoutHandler = () => {
+    localStorage.removeItem("token");
+    dispatch(signout());
+  };
+
   return (
     <nav className="navbar-container">
       <div className="navbar-brand">
@@ -14,7 +24,7 @@ export const Navbar: FC = () => {
         </Link>
       </div>
       <ul className="navbar-group">
-        {auth.isAuthenticated ? (
+        {isAuthenticated ? (
           <>
             <li className="navbar-item">
               <Link to="/leaderboard" className="navbar-link">
@@ -26,8 +36,8 @@ export const Navbar: FC = () => {
                 Rules
               </Link>
             </li>
-            <li className="navbar-item" onClick={() => signout()}>
-              <Link to="/rules" className="navbar-link">
+            <li className="navbar-item" onClick={signoutHandler}>
+              <Link to={"/"} className="navbar-link">
                 <GoSignOut />
               </Link>
             </li>

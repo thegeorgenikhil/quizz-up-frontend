@@ -6,9 +6,10 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
+import { useAppSelector } from "../app/hooks";
 import { actionTypes, dataReducer } from "../reducers";
-import { useAuth } from "./auth-context";
 import { DataStateType, UserContextType } from "../types";
+
 
 const UserContext = createContext({} as UserContextType);
 
@@ -25,7 +26,7 @@ const initialDataState: DataStateType = {
 };
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
-  const { auth } = useAuth();
+  const { token } = useAppSelector((state) => state.auth);
   const [dataState, dataDispatch] = useReducer(dataReducer, initialDataState);
   const { SET_RESULTS } = actionTypes;
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
       },
       {
         headers: {
-          authorization: `Bearer ${auth.token}`,
+          authorization: `Bearer ${token}`,
         },
       }
     );

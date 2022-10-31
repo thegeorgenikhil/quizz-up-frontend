@@ -9,7 +9,6 @@ import {
   Signup,
 } from "./pages";
 import { Navbar, PrivateRoutes } from "./components";
-import { DataProvider } from "./context";
 import { FC } from "react";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
@@ -19,8 +18,6 @@ export const App: FC = () => {
     <>
       <BrowserRouter>
         <Provider store={store}>
-          {/* <AuthProvider> */}
-          <DataProvider>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -45,8 +42,6 @@ export const App: FC = () => {
                 }
               />
             </Routes>
-          </DataProvider>
-          {/* </AuthProvider> */}
         </Provider>
       </BrowserRouter>
     </>

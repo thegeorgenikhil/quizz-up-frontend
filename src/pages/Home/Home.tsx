@@ -1,22 +1,23 @@
 import { GrReactjs } from "react-icons/gr";
 import { SiJavascript } from "react-icons/si";
 import "./Home.css";
-import { useDataContext } from "../../context";
-import { actionTypes } from "../../reducers";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { quizActions } from "../../features/quiz/quizSlice";
 
 export const Home = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
-  const { dataDispatch } = useDataContext();
-  const { SET_CATEGORY_ID } = actionTypes;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { setCurrentCategoryId } = quizActions;
 
   const categoryClickHandler = (categoryId: string) => {
     if (!isAuthenticated) return navigate("/login");
-    dataDispatch({ type: SET_CATEGORY_ID, payload: { categoryId } });
+    dispatch(setCurrentCategoryId(categoryId));
     navigate("/rules");
   };
+
   return (
     <>
       <header className="header">

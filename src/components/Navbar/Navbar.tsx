@@ -4,15 +4,18 @@ import { GoSignOut } from "react-icons/go";
 import { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { authActions } from "../../features/auth/authSlice";
+import { quizActions } from "../../features/quiz/quizSlice";
 
 export const Navbar: FC = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const { signout } = authActions;
+  const { resetQuiz } = quizActions;
 
   const signoutHandler = () => {
     localStorage.removeItem("token");
+    dispatch(resetQuiz());
     dispatch(signout());
   };
 

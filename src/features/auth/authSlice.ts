@@ -8,6 +8,9 @@ export interface AuthState {
 }
 
 export interface AuthResponse {
+  _id: string;
+  name: string;
+  email: string;
   token: string;
 }
 
@@ -27,17 +30,6 @@ export const signup = createAsyncThunk<AuthResponse, UserAuthInfoType>(
     });
     const data = await res.data;
     return data.user;
-    // if (data.error) {
-    //   throw new Error(data.error);
-    // }
-    // if (res.status === 201 && data.user) {
-    //   localStorage.setItem("token", data.user.token);
-    //   setAuth({
-    //     token: data.user.token,
-    //     isAuthenticated: true,
-    //   });
-    //   navigate("/");
-    // }
   }
 );
 
@@ -50,15 +42,8 @@ export const signin = createAsyncThunk<AuthResponse, UserAuthInfoType>(
       password,
     });
     const data = await res.data;
+    console.log(data.user);
     return data.user;
-    // if (res.status === 200 && data.user) {
-    //   if (rememberMe) localStorage.setItem("token", data.user.token);
-    //   setAuth({
-    //     token: data.user.token,
-    //     isAuthenticated: true,
-    //   });
-    //   navigate("/");
-    // }
   }
 );
 

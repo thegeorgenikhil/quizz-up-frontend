@@ -1,15 +1,16 @@
-import {  useNavigate } from "react-router-dom";
-import { useDataContext } from "../../context";
-import { actionTypes } from "../../reducers";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { quizActions } from "../../features/quiz/quizSlice";
 
 export const ResultPage = () => {
-  const { dataState, dataDispatch } = useDataContext();
-  const { results } = dataState;
   const navigate = useNavigate();
-  const { TAKE_ANOTHER_QUIZ } = actionTypes;
+  const { results } = useAppSelector((state) => state.quiz);
+  const dispatch = useAppDispatch();
+
+  const { resetQuiz } = quizActions;
 
   const takeAnotherQuizHandler = () => {
-    dataDispatch({ type: TAKE_ANOTHER_QUIZ });
+    dispatch(resetQuiz());
     navigate("/");
   };
   return (

@@ -1,10 +1,14 @@
-export type { AuthContextType, AuthType } from "./auth.types";
+export type { UserAuthInfoType, UserAnswerType } from "./user.types";
 export type {
-  DataStateType,
-  DataActionType,
-  UserAuthInfoType,
-  UserContextType,
-  QuestionType
-} from "./user.types";
+  QuestionType,
+  QuizInfoType,
+  QuizState,
+  AuthToken,
+  QuizData,
+  FetchQuestionsParams,
+  FetchQuestionsResponse,
+  SubmitQuizResponse,
+  SetCurrentAnswerPayload,
+} from "./quiz.types";
 export type { UserScoreInfoType, LeaderboardType } from "./leaderboard.types";
 export type { ResultType } from "./results.types";

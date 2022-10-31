@@ -6,7 +6,7 @@ export type ResultType = {
 export type CompareAnswerArrType = {
   question: string;
   questionAnswer: string;
-  questionOptions: [string];
+  questionOptions: string[];
   userAnswered: string;
   _id: string;
 };

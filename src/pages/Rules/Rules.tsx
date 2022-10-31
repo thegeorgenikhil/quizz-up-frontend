@@ -1,44 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../../api";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Loader } from "../../components";
-import { useAuth, useDataContext } from "../../context";
-import { actionTypes } from "../../reducers";
+import { fetchQuestions } from "../../features/quiz/quizSlice";
 import "./Rules.css";
 
 export const Rules = () => {
-  const { auth } = useAuth();
-  const { dataState, dataDispatch } = useDataContext();
-  const { currentCategoryId } = dataState.quizInfo;
-  const { SET_QUIZ_QUESTIONS } = actionTypes;
-  const [loading, setLoading] = useState<boolean>(false);
+  const {
+    auth: { token },
+    quiz: { quizInfo, isQuestionsLoaded },
+  } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const { currentCategoryId } = quizInfo;
 
   useEffect(() => {
-    const getQuestionsById = async (categoryId: string) => {
-      setLoading(true);
-      try {
-        const res = await api.get(`/quiz/get/${categoryId}/questions`, {
-          headers: {
-            authorization: `Bearer ${auth.token}`,
-          },
-        });
-        const data = await res.data;
-        if (res.status === 200) {
-          dataDispatch({
-            type: SET_QUIZ_QUESTIONS,
-            payload: {
-              questions: data.category.questions,
-              categoryName: data.category.categoryName,
-            },
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-      setLoading(false);
-    };
-
-    if (auth.token && currentCategoryId) getQuestionsById(currentCategoryId);
+    if (token && currentCategoryId) {
+      dispatch(fetchQuestions({ currentCategoryId, token }));
+    }
     // eslint-disable-next-line
   }, [currentCategoryId]);
 
@@ -66,22 +44,22 @@ export const Rules = () => {
         </ul>
         <p className="text-center font-bold">HAPPY QUIZZING!</p>
       </div>
-      {loading ? (
-        <button className="start-quiz-btn btn bg-warning text-center btn-bg-yellow">
-          <Loader />
-        </button>
-      ) : (
-        <Link
-          to={
-            auth.token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"
-          }
-          className="start-quiz-btn"
-        >
-          <button className="btn bg-warning text-center btn-bg-yellow">
-            Start Quiz
+      {currentCategoryId ? (
+        !isQuestionsLoaded ? (
+          <button className="start-quiz-btn btn bg-warning text-center btn-bg-yellow">
+            <Loader />
           </button>
-        </Link>
-      )}
+        ) : (
+          <Link
+            to={token ? (currentCategoryId ? "/quiz/question" : "/") : "/login"}
+            className="start-quiz-btn"
+          >
+            <button className="btn bg-warning text-center btn-bg-yellow">
+              Start Quiz
+            </button>
+          </Link>
+        )
+      ) : null}
     </>
   );
 };

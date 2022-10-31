@@ -1,47 +1,58 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "../../components";
-import { useDataContext } from "../../context";
-import { actionTypes } from "../../reducers";
 import "./QuizPage.css";
 import { QuestionType } from "../../types";
+import { quizActions, submitQuiz } from "../../features/quiz/quizSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const QuizPage = () => {
-  const { dataState, dataDispatch, submitQuiz } = useDataContext();
-  const { categoryName, questions, currentCategoryId } = dataState.quizInfo;
-  const { currentQuestionIndex, userAnswers } = dataState;
-  const { INCREMENT_CURRENT_QUESTION_INDEX, SET_ANSWER } = actionTypes;
-
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>({
     _id: "",
     question: "",
     questionOptions: [],
   });
   const [answer, setAnswer] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const {
+    auth: { token },
+    quiz: { currentQuestionIndex, userAnswers, quizInfo, isSubmitting },
+  } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { setCurrentAnswer, incrementCurrentQuestionIndex } = quizActions;
+  const { categoryName, questions, currentCategoryId } = quizInfo;
 
   const nextQuestionHandler = () => {
-    dataDispatch({
-      type: SET_ANSWER,
-      payload: {
+    dispatch(
+      setCurrentAnswer({
         userAnswer: { questionId: currentQuestion._id, answer: answer },
-      },
-    });
-    dataDispatch({ type: INCREMENT_CURRENT_QUESTION_INDEX });
+      })
+    );
+    dispatch(incrementCurrentQuestionIndex());
   };
 
   const submitQuizHandler = async () => {
-    setLoading(true);
-    dataDispatch({
-      type: SET_ANSWER,
-      payload: {
-        userAnswer: { questionId: currentQuestion._id, answer: answer },
-      },
-    });
-    submitQuiz(currentCategoryId, [
-      ...userAnswers,
-      { questionId: currentQuestion._id, answer: answer },
-    ]);
-    setLoading(false);
+    try {
+      dispatch(
+        setCurrentAnswer({
+          userAnswer: { questionId: currentQuestion._id, answer: answer },
+        })
+      );
+      const quizResults = await dispatch(
+        submitQuiz({
+          categoryId: currentCategoryId,
+          userAnswers: [
+            ...userAnswers,
+            { questionId: currentQuestion._id, answer: answer },
+          ],
+          token: token,
+        })
+      ).unwrap();
+      if (quizResults.results) navigate("/results");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -89,7 +100,7 @@ export const QuizPage = () => {
                 className="btn bg-warning text-center btn-bg-yellow"
                 onClick={submitQuizHandler}
               >
-                {loading ? <Loader /> : "Submit Quiz"}
+                {isSubmitting ? <Loader /> : "Submit Quiz"}
               </button>
             ))}
         </div>

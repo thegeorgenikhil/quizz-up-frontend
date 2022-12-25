@@ -13,6 +13,7 @@ export const Leaderboard = () => {
     leaderboard: LeaderboardType[],
     data: UserScoreInfoType[]
   ) => {
+    if (data.length === 0) return leaderboard;
     const userInfo = { name: data[0].name, userScore: 0 };
     data.forEach((user) => {
       if (filterByCategory === "all" || user.categoryId === filterByCategory) {

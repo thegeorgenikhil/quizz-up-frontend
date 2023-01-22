@@ -8,7 +8,7 @@ QuizzUp is a web app that allows users to play quizzes made using React.js and N
 
 [Live Link](https://quizz-up.netlify.app/)
 
-[Github Repo for Backend](https://github.com/thegeorgenikhil/quizz-up-frontend)
+[Github Repo for Backend](https://github.com/thegeorgenikhil/quizz-up-backend)
 
 # How to run app locally
 
